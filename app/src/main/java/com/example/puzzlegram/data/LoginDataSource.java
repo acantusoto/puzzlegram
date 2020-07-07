@@ -1,6 +1,7 @@
 package com.example.puzzlegram.data;
 
 import com.example.puzzlegram.data.model.LoggedInUser;
+import com.parse.ParseUser;
 
 import java.io.IOException;
 
@@ -9,21 +10,9 @@ import java.io.IOException;
  */
 public class LoginDataSource {
 
-    public Result<LoggedInUser> login(String username, String password) {
-
-        try {
-            // TODO: handle loggedInUser authentication
-            LoggedInUser fakeUser =
-                    new LoggedInUser(
-                            java.util.UUID.randomUUID().toString(),
-                            "Jane Doe");
-            return new Result.Success<>(fakeUser);
-        } catch (Exception e) {
-            return new Result.Error(new IOException("Error logging in", e));
-        }
-    }
 
     public void logout() {
-        // TODO: revoke authentication
+        ParseUser.logOut();
+        ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
     }
 }
