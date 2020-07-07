@@ -2,6 +2,7 @@ package com.example.puzzlegram.ui.login;
 
 import android.app.Activity;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -16,6 +17,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -44,6 +46,12 @@ public class LoginActivity extends AppCompatActivity {
         if(ParseUser.getCurrentUser() != null){
             goMainActivity();
         }
+        // Find the toolbar view inside the activity layout
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        // Make sure the toolbar exists in the activity and is not null
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
@@ -97,10 +105,10 @@ public class LoginActivity extends AppCompatActivity {
                 ParseUser.logInInBackground(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString(), new LogInCallback() {
                             @Override
-                            public void done(ParseUser user, ParseException e) {
-                                if(e != null){
-                                    Toast.makeText(getApplicationContext(),"login unsuccessful",Toast.LENGTH_SHORT);
-                                    Log.e(TAG, "done: ", e);
+                            public void done(ParseUser user, ParseException en) {
+                                if(en != null){
+                                    Toast.makeText(getApplicationContext(),"login unsuccessful",Toast.LENGTH_SHORT).show();
+                                    Log.e(TAG, "done: ", en);
                                     loadingProgressBar.setVisibility(View.GONE);
                                     return;
                                 }
@@ -122,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                 user.signUpInBackground(new SignUpCallback() {
                     public void done(ParseException e) {
                                 if(e != null){
-                                    Toast.makeText(getApplicationContext(),"Sign Up unsuccessful",Toast.LENGTH_SHORT);
+                                    Toast.makeText(getApplicationContext(),"Sign Up unsuccessful",Toast.LENGTH_SHORT).show();
                                     Log.e(TAG, "done: ", e);
                                     loadingProgressBar.setVisibility(View.GONE);
                                     return;
@@ -141,5 +149,12 @@ public class LoginActivity extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
+    }
+    // Menu icons are inflated just as they were with actionbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 }
