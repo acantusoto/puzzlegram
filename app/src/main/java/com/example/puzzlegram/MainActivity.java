@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.example.puzzlegram.databinding.ActivityMainBinding;
 import com.example.puzzlegram.fragments.ComposeFragment;
+import com.example.puzzlegram.fragments.PostFragment;
 import com.example.puzzlegram.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
@@ -79,13 +80,10 @@ public class MainActivity extends AppCompatActivity  {
                 switch (item.getItemId()) {
                     case R.id.action_home:
                     default:
-                        //TODO: Update fragment
-                        fragment = new ComposeFragment();
-                        Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
+                        fragment = new PostFragment();
                         break;
                     case R.id.action_compose:
                         fragment = new ComposeFragment();
-                        Toast.makeText(MainActivity.this, "compose", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_profile:
                         fragment = new ProfileFragment();
@@ -98,28 +96,13 @@ public class MainActivity extends AppCompatActivity  {
         });
         // Set default selection
         bottomNavigation.setSelectedItemId(R.id.action_home);
-        queryPost();
+
 
 
     }
 
 
-    private void queryPost() {
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.include(Post.KEY_USER);
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                if (e != null){
-                    Log.e(TAG, "Issue getting posts",e );
-                    return;
-                }
-                for(Post post: posts){
-                    Log.i(TAG, "Post: "+ post.getDescription() + ", username: "+ post.getUser().getUsername());
-                }
-            }
-        });
-    }
+
 
     // Menu icons are inflated just as they were with actionbar
     @Override
