@@ -1,26 +1,34 @@
 package com.example.puzzlegram.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Parcel;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.puzzlegram.EndlessRecyclerViewScrollListener;
+import com.example.puzzlegram.ItemClickSupport;
 import com.example.puzzlegram.Post;
+import com.example.puzzlegram.PostDetailActivity;
 import com.example.puzzlegram.PostsAdapter;
 import com.example.puzzlegram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +97,16 @@ public class PostFragment extends Fragment {
         // Adds the scroll listener to RecyclerView
         rvPosts.addOnScrollListener(scrollListener);
         queryPost();
+
+        ItemClickSupport.addTo(rvPosts).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                Intent i = new Intent(getActivity(), PostDetailActivity.class);
+                i.putExtra("post", Parcels.wrap(allPosts.get(position)));
+                startActivity(i);
+
+            }
+        });
 
     }
     protected void loadNextDataFromApi() {
