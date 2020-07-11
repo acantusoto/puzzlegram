@@ -2,4 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:title="Logout"
+        android:id="@+id/action_logout"/>
+    <item android:title="Set User Image"
+        android:id="@+id/set_user_image"/>
 </menu>

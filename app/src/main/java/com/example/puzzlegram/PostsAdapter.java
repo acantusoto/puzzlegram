@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 
 import java.util.List;
 
@@ -49,12 +50,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvUsername;
         private ImageView ivImage;
         private TextView tvDescription;
+        private ImageView ivUserImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescript);
+            ivUserImage = itemView.findViewById(R.id.ivUserImage);
 
         }
 
@@ -62,6 +65,18 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
             Glide.with(context).load(post.getImage().getUrl()).into(ivImage);
+            if(post.getUser().getParseFile("userImage") != null){
+                Glide.with(context).load(post.getUser().getParseFile("userImage").getUrl().toString())
+                        .override(200,200)
+                        .fitCenter()
+                        .transform(new CircleCrop())
+                        .into(ivUserImage);
+            }
+            else{
+                Glide.with(context).load(R.drawable.placeholder_user)
+                        .transform(new CircleCrop())
+                        .into(ivUserImage);
+            }
 
         }
     }

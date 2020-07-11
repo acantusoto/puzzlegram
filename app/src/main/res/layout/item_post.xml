@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="5dp"
     android:elevation="10dp"
     android:background="@drawable/rounded_corner"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvUsername"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/ivUserImage"
         android:background="#272727"
         android:text="Alex"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -22,6 +24,7 @@
     <ImageView
         android:id="@+id/ivImage"
         android:layout_width="match_parent"
+        android:layout_below="@id/tvUsername"
         android:layout_height="300dp"
         android:background="#272727"
         android:scaleType="centerCrop"
@@ -31,11 +34,34 @@
         android:id="@+id/tvDescript"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="2dp"
         android:background="#272727"
+        android:layout_below="@id/ivImage"
         android:maxLines="2"
         android:text="Hey there"
         android:textColor="#FFFFFF" />
 
+    <ImageView
+        android:id="@+id/ivUserImage"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvUsername"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="0dp"
+        tools:srcCompat="@tools:sample/avatars" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tvTimestamp"
+        android:textColor="@color/timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/tvDescript"
+        android:layout_marginBottom="8dp"
+        android:text="TextView" />
+
+
+</RelativeLayout>

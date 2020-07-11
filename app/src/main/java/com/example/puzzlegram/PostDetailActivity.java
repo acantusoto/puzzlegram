@@ -38,9 +38,18 @@ public class PostDetailActivity extends AppCompatActivity {
         tvTimestamp.setText(post.getCreatedAt().toString());
         Glide.with(this).load(post.getImage().getUrl())
                 .into(ivMainImage);
-        Glide.with(this).load(R.drawable.placeholder_user)
-                .transform( new CircleCrop())
-                .into(ivUserImage);
+        if(post.getUser().getParseFile("userImage") != null){
+            Glide.with(this).load(post.getUser().getParseFile("userImage").getUrl().toString())
+                    .override(200,200)
+                    .fitCenter()
+                    .transform(new CircleCrop())
+                    .into(ivUserImage);
+        }
+        else{
+            Glide.with(this).load(R.drawable.placeholder_user)
+                    .transform(new CircleCrop())
+                    .into(ivUserImage);
+        }
 
     }
 }
