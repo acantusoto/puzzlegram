@@ -35,25 +35,36 @@
         android:id="@+id/flContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottomNavigation"
+        android:layout_above="@id/bottomNavContainer"
         android:layout_below="@id/toolbar"
         android:layout_margin="0dp"/>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
+    <LinearLayout
+        android:id="@+id/bottomNavContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#272727"
-        android:hapticFeedbackEnabled="true"
-        android:keepScreenOn="false"
-        app:itemIconTint="@color/ic_insta_background"
-        app:itemRippleColor="#90CAF9"
-        app:labelVisibilityMode="unlabeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_bottom_navigation" />
+        android:background="#77FFFFFF">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#272727"
+            android:hapticFeedbackEnabled="true"
+            android:isScrollContainer="true"
+
+            android:keepScreenOn="false"
+            app:itemRippleColor="#ffffff"
+            app:itemTextColor="#4B90CAF9"
+            app:labelVisibilityMode="unlabeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/menu_bottom_navigation" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>
